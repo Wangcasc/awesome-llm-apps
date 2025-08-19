@@ -3,6 +3,7 @@ from agno.models.google import Gemini
 from agno.tools.duckduckgo import DuckDuckGoTools
 from google.generativeai import upload_file, get_file
 import time
+# 0.API：https://blog.csdn.net/weixin_40654513/article/details/140623913
 
 # 1. Initialize the Multimodal Agent
 agent = Agent(model=Gemini(id="gemini-2.0-flash-exp"), tools=[DuckDuckGoTools()], markdown=True)
