@@ -5,6 +5,10 @@ from langchain_community.vectorstores import Chroma
 from langchain_ollama import OllamaEmbeddings
 from langchain_ollama import ChatOllama
 
+# 学会用streamlit创建一个网页聊天应用
+# 该应用允许用户输入一个网页URL，并与该网页进行对话
+# 本地的模型性能一般
+
 st.title("Chat with Webpage 🌐")
 st.caption("This app allows you to chat with a webpage using local llama3 and RAG")
 
@@ -12,7 +16,8 @@ st.caption("This app allows you to chat with a webpage using local llama3 and RA
 webpage_url = st.text_input("Enter Webpage URL", type="default")
 # Connect to Ollama
 ollama_endpoint = "http://127.0.0.1:11434"
-ollama_model = "llama3.1"
+# ollama_model = "llama3.1:8b"
+ollama_model = "deepseek-r1:8b"
 ollama = ChatOllama(model=ollama_model, base_url=ollama_endpoint)
 
 if webpage_url:
@@ -23,7 +28,7 @@ if webpage_url:
     splits = text_splitter.split_documents(docs)
 
     # 2. Create Ollama embeddings and vector store
-    embeddings = OllamaEmbeddings(model=ollama_model, base_url=ollama_endpoint)
+    embeddings = OllamaEmbeddings(model="nomic-embed-text:latest", base_url=ollama_endpoint)
     vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings)
 
     # 3. Call Ollama Llama3 model
